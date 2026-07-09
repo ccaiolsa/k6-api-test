@@ -25,3 +25,8 @@ Testes de performance com k6
     - Execute o seguinte comando:
         docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/ebac-api-login.json -g k6 -o /local/k6-tests/ --skip-validate-spec
 - Ao final você terá todos os endpoints, todos os tipos de requisições e respostas. ISSO AJUDA MUITO quando você precisa fazer testes de API (ótimo Startpoint)
+
+- Montando uma request
+    - Ela lembra um pouco no que foi feito durante o curso com o cypress
+    - O script gerado pelo OpenAPIgenerator ajuda a identificar os componentes necessários para se fazer uma request. Exemplo:
+    - No login é pedido apenas email e senha (segundo a documentação do swagger), porém é necessário passar o header como parâmetro também (mas aonde achar? No script gerado!!!)

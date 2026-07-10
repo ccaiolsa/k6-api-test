@@ -1,0 +1,24 @@
+{
+  "name": "k6-test",
+  "version": "1.0.0",
+  "description": "Realizar testes de performance utilizando k6",
+  "homepage": "https://github.com/ccaiolsa/k6-api-test#readme",
+  "bugs": {
+    "url": "https://github.com/ccaiolsa/k6-api-test/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccaiolsa/k6-api-test.git"
+  },
+  "license": "ISC",
+  "author": "Caio",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "k6:login": "k6 cloud login --token 00e57fef04518ad9c7bb7ce98ac21f23c50487d92c623d3252f07152d91485eb --stack https://epicmonorail1865.grafana.net",
+    "k6:test": "k6 cloud run --local-execution ./k6-specs/simulations/login-load-fail.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

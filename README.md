@@ -13,8 +13,9 @@ Como executar?
 - Executar o primeiro teste: k6 run primeiro-test.js
 - Pode-se executar definindo alguns parâmetros caso necessário: k6 run --vus 10 --duration 30s primeiro-test.js
 - Realizar login para testes no cloud: k6 cloud login 
-- token:00e57fef04518ad9c7bb7ce98ac21f23c50487d92c623d3252f07152d91485eb
+- token: 00e57fef04518ad9c7bb7ce98ac21f23c50487d92c623d3252f07152d91485eb
 - stack: https://epicmonorail1865.grafana.net
+- token do projeto: f13b4066dfa302d12f96618733034080c32f7f0698fea5d88ddc0d144e667469
 
 Testes de performance com k6
 - A melhor forma de iniciar é tendo um panorama geral das requisições de API
@@ -29,4 +30,4 @@ Testes de performance com k6
 - Montando uma request
     - Ela lembra um pouco no que foi feito durante o curso com o cypress
     - O script gerado pelo OpenAPIgenerator ajuda a identificar os componentes necessários para se fazer uma request. Exemplo:
-    - No login é pedido apenas email e senha (segundo a documentação do swagger), porém é necessário passar o header como parâmetro também (mas aonde achar? No script gerado!!!)
+    - k6 new <NOME DO ARQUIVO> para iniciar um script rápido

@@ -4,6 +4,27 @@ import http from 'k6/http';
 import Utils from '../utils/utils.js';
 import Produtos from '../request/produtos.js';
 
+export const options = {
+    thresholds: {
+        http_req_failed: ['rate<0.01'],
+        http_req_duration: ['p(99)<1000'],
+  },
+    scenarios: {
+        average_load: {
+            executor: 'ramping-vus',
+        stages: [
+            // aumenta gradativamente para 20UV por 10s
+            { duration: '10s', target: 20 },
+            // Mantem a carga de 20UV por 50s
+            { duration: '50s', target: 20 },
+            // Reduz a carga para 0UV durante 5s
+            { duration: '5s', target: 0 },
+      ],
+    },
+  },
+};
+
+
 export default function () {
     let id;
 

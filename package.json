@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "k6:login": "k6 cloud login --token 00e57fef04518ad9c7bb7ce98ac21f23c50487d92c623d3252f07152d91485eb --stack https://epicmonorail1865.grafana.net",
-    "k6:test": "k6 cloud run --local-execution ./k6-specs/simulations/login-load-fail.js"
+    "k6:test": "k6 cloud run --local-execution ./k6-specs/simulations/cliente-test.js"
   },
   "dependencies": {
     "dotenv": "^17.4.2"

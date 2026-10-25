@@ -1,33 +1,77 @@
-Teste de performance utilizando K6
+# ⚡ Testes de Performance de API com k6
 
-Requisitos básicos para utilizar o k6
-- Instalar o gerneciador de pacotes Chocolately
-    https://docs.chocolatey.org/en-us/choco/setup/
+![k6](https://img.shields.io/badge/k6-7D64FF?style=for-the-badge&logo=k6&logoColor=white)
+![OpenAPI](https://img.shields.io/badge/OpenAPI-6BA539?style=for-the-badge&logo=openapiinitiative&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-- Instalar o próprio k6
-    https://grafana.com/docs/k6/latest/set-up/install-k6/
+> Exercício de teste de performance com **k6**, usando o **OpenAPI Generator** para extrair automaticamente todas as requisições e respostas da API e acelerar a criação dos testes.
 
-Como executar?
-- Verificar se o chocolately foi instalado: choco -?
-- verificar se o k6 foi instalado k6 -v
-- Executar o primeiro teste: k6 run primeiro-test.js
-- Pode-se executar definindo alguns parâmetros caso necessário: k6 run --vus 10 --duration 30s primeiro-test.js
-- Realizar login para testes no cloud: k6 cloud login 
-- token: 00e57fef04518ad9c7bb7ce98ac21f23c50487d92c623d3252f07152d91485eb
-- stack: https://epicmonorail1865.grafana.net
-- token do projeto: f13b4066dfa302d12f96618733034080c32f7f0698fea5d88ddc0d144e667469
+---
 
-Testes de performance com k6
-- A melhor forma de iniciar é tendo um panorama geral das requisições de API
-- Para isso, foi preciso ter uma conta no OpenAPI para ter acesso a integração k6 com OpenAPI
-- Link da image do OpenAPIGenerator: https://hub.docker.com/r/openapitools/openapi-generator-cli
-- Para o projeto foi acessado o seguinte link: http://localhost:3000/swagger.json#
-    - Aqui ele apresenta todas as requisições, resposta e componentes importantes para o openapitool
-    - Execute o seguinte comando:
-        docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/ebac-api-login.json -g k6 -o /local/k6-tests/ --skip-validate-spec
-- Ao final você terá todos os endpoints, todos os tipos de requisições e respostas. ISSO AJUDA MUITO quando você precisa fazer testes de API (ótimo Startpoint)
+## 📋 Sobre o projeto
 
-- Montando uma request
-    - Ela lembra um pouco no que foi feito durante o curso com o cypress
-    - O script gerado pelo OpenAPIgenerator ajuda a identificar os componentes necessários para se fazer uma request. Exemplo:
-    - k6 new <NOME DO ARQUIVO> para iniciar um script rápido
+A melhor forma de iniciar testes de performance de API é ter um panorama geral das requisições. Neste projeto, o **OpenAPI Generator** lê a especificação (Swagger) da aplicação e gera os scripts base em k6, com todos os endpoints, tipos de requisição e respostas. É um ótimo ponto de partida.
+
+## 🧰 Requisitos
+
+| Requisito | Link |
+|---|---|
+| Chocolatey (gerenciador de pacotes para Windows) | [Instalação](https://docs.chocolatey.org/en-us/choco/setup/) |
+| k6 | [Instalação](https://grafana.com/docs/k6/latest/set-up/install-k6/) |
+| Docker | Necessário para rodar o OpenAPI Generator |
+
+## ▶️ Como executar
+
+**1. Verificar as instalações**
+
+```bash
+choco --version
+k6 version
+```
+
+**2. Executar o primeiro teste**
+
+```bash
+k6 run primeiro-test.js
+```
+
+**3. Definir parâmetros, se necessário** (exemplo: 10 usuários virtuais por 30 segundos)
+
+```bash
+k6 run --vus 10 --duration 30s primeiro-test.js
+```
+
+### ☁️ Enviando resultados para o k6 Cloud (opcional)
+
+Faça login com o token e a stack da **sua** conta:
+
+```bash
+k6 cloud login --token <YOUR_K6_API_TOKEN> --stack <YOUR_STACK_URL_OR_SLUG>
+```
+
+> 🔒 **Nunca escreva seu token no README nem o envie ao repositório.** Se preferir, defina-o como variável de ambiente (`K6_CLOUD_TOKEN`) no seu computador.
+
+## 🧬 Gerando os testes com OpenAPI Generator
+
+Imagem Docker utilizada: [openapitools/openapi-generator-cli](https://hub.docker.com/r/openapitools/openapi-generator-cli)
+
+**1. Obter a especificação da API**
+
+Com a aplicação rodando, acesse `http://localhost:3000/swagger.json`. Esse endereço apresenta todas as requisições, respostas e componentes importantes para o OpenAPI Generator. Salve o conteúdo como `ebac-api-login.json` na raiz do projeto.
+
+**2. Gerar os scripts k6**
+
+```bash
+docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/ebac-api-login.json -g k6 -o /local/k6-tests/ --skip-validate-spec
+```
+
+> 💡 `${PWD}` funciona no Linux, macOS e PowerShell. No CMD do Windows, troque por `%cd%`.
+
+**3. Resultado**
+
+Os scripts ficam na pasta `k6-tests/`, com todos os endpoints e todos os tipos de requisições e respostas da aplicação.
+
+---
+
+<p align="center">Feito por <a href="https://github.com/ccaiolsa">Caio Araújo</a> • <a href="https://www.linkedin.com/in/ccaiolsa-qa">LinkedIn</a></p>
